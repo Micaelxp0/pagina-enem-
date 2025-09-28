@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <title>ENEM COMPLETO - Material de Estudos para o ENEM 2025</title>
+    <meta name="description" content="O Material com o Passo a Passo para Sair do Zero e Conquistar a Aprovação no ENEM 2025. Método testado para quem está atrasado e precisa de um milagre em 2 meses." />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script type="module" crossorigin src="/assets/index-CMI5vmM6.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-BBElBvrF.css">
+  </head>
+  <body>
+    <div id="root"></div>
+  
+<script>
+(function(){
+  const url = "https://pay.cakto.com.br/aon9hid_587105";
+  const labels = ["Comprar agora", "Quero meu acesso"];
+  function normalizeText(s){ return (s||'').replace(/\s+/g,' ').trim(); }
+  function tryAttach(el){
+    if(!el || !el.textContent) return false;
+    const text = normalizeText(el.textContent);
+    if(!labels.includes(text)) return false;
+    // If it's already an anchor, just set href/target
+    if(el.tagName && el.tagName.toLowerCase() === 'a'){
+      el.href = url;
+      el.target = "_blank";
+      el.rel = "noopener noreferrer";
+      return true;
+    }
+    // If it's a button, attach click listener to open new tab (preserve styles)
+    if(el.tagName && el.tagName.toLowerCase() === 'button'){
+      // Avoid attaching multiple listeners
+      if(!el.__paymentHandlerAttached){
+        el.addEventListener('click', function(e){
+          // allow normal behavior for forms if present: preventDefault then open
+          try{ window.open(url, '_blank'); }catch(err){ window.location.href = url; }
+        });
+        el.__paymentHandlerAttached = true;
+      }
+      return true;
+    }
+    // For other inline elements, wrap them in an anchor while preserving classes
+    const a = document.createElement('a');
+    a.href = url;
+    a.target = "_blank";
+    a.rel = "noopener noreferrer";
+    // copy class and style so it keeps visual appearance
+    if(el.className) a.className = el.className;
+    if(el.getAttribute && el.getAttribute('style')) a.setAttribute('style', el.getAttribute('style'));
+    // replace el with anchor containing el
+    el.parentNode && el.parentNode.replaceChild(a, el);
+    a.appendChild(el);
+    return true;
+  }
+
+  function scan(root){
+    // check common elements that may hold the label
+    const candidates = root.querySelectorAll('button, a, span, div, p, li, strong');
+    let found = 0;
+    for(const el of candidates){
+      try{
+        if(tryAttach(el)) found++;
+      }catch(e){ /* ignore */ }
+    }
+    return found;
+  }
+
+  function attachObserver(){
+    const observer = new MutationObserver((mutations) => {
+      for(const m of mutations){
+        if(m.addedNodes && m.addedNodes.length){
+          for(const n of m.addedNodes){
+            if(n.nodeType === 1){ // element
+              try{ scan(n); }catch(e){}
+            }
+          }
+        }
+      }
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+    // also run a few immediate scans in case the elements are already present
+    scan(document);
+    // stop observing after 30s to avoid long-lived observers
+    setTimeout(()=>observer.disconnect(), 30000);
+  }
+
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', attachObserver);
+  } else {
+    attachObserver();
+  }
+})();
+</script>
+</body>
+</html>
